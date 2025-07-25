@@ -4,8 +4,11 @@ import org.mohil.jobapp.model.JobPost;
 import org.mohil.jobapp.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class JobController {
@@ -30,8 +33,9 @@ public class JobController {
     }
 
     @GetMapping("viewalljobs")
-    public String viewalljobs(){
-        jobService.getAllJobs();
+    public String viewalljobs(Model model){
+        List<JobPost> jobs = jobService.getAllJobs();
+        model.addAttribute("jobPosts", jobs);
         return "viewalljobs";
     }
 }
